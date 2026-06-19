@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citarox Apps — Des applications mobiles modernes et sécurisées</title>
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-color: #080A0F;
+            --card-bg: rgba(17, 22, 33, 0.7);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+            
+            /* Gradients */
+            --gradient-voucho: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+            --gradient-matchset: linear-gradient(135deg, #00E5FF 0%, #0084FF 100%);
+            --gradient-lifebattery: linear-gradient(135deg, #FF3366 0%, #FF6633 100%);
+            --gradient-zengarden: linear-gradient(135deg, #F9D423 0%, #FF4E50 100%);
+            --gradient-hero: linear-gradient(180deg, rgba(79, 172, 254, 0.15) 0%, rgba(8, 10, 15, 0) 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Layout & Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero Header */
+        header {
+            position: relative;
+            background: var(--gradient-hero);
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-bar {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand i {
+            color: #4FACFE;
+            -webkit-text-fill-color: initial;
+        }
+
+        .hero-content {
+            padding: 100px 0 120px 0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4FACFE;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #D1D5DB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Apps grid wrapper */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 968px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+                margin-top: -20px;
+            }
+        }
+
+        /* Voucho Feature Highlight (Main Card) */
+        .voucho-hero-card {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voucho-hero-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .app-icon-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+            object-fit: cover;
+        }
+
+        .app-tagline {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--gradient-voucho);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .app-title-large {
+            font-size: 38px;
+            color: #FFF;
+        }
+
+        .voucho-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Voucho Features */
+        .features-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .features-row {
+                grid-template-columns: 1fr;
+            }
+            .voucho-hero-card {
+                padding: 24px;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .feature-icon-wrapper {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(79, 172, 254, 0.1);
+            color: #4FACFE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFF;
+            margin-bottom: 6px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Voucho How-To / Steps */
+        .steps-container {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 32px;
+        }
+
+        .steps-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #FFF;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient-voucho);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step-card h5 {
+            font-size: 14px;
+            color: #FFF;
+            margin-bottom: 6px;
+        }
+
+        .step-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* App Cards (Other Apps Sidebar) */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-sidebar-card {
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .app-icon-small {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .app-meta {
+            flex: 1;
+        }
+
+        .app-title-small {
+            font-size: 18px;
+            color: #FFF;
+            margin-bottom: 4px;
+        }
+
+        .app-genre {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .genre-matchset {
+            color: #00E5FF;
+        }
+
+        .genre-lifebattery {
+            color: #FF3366;
+        }
+
+        .genre-zengarden {
+            color: #F9D423;
+        }
+
+        .app-desc-small {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* AdMob Banner Mockup / Domain Info Section */
+        .domain-notice {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(79, 172, 254, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .domain-notice {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .notice-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(79, 172, 254, 0.08);
+            color: #4FACFE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notice-text h4 {
+            font-size: 18px;
+            color: #FFF;
+            margin-bottom: 6px;
+        }
+
+        .notice-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #05060A;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 60px 0;
+            margin-top: 100px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 16px;
+        }
+
+        .footer-links-title {
+            color: #FFF;
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a:hover {
+            color: #FFF;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Header -->
+    <header>
+        <div class="container">
+            <nav class="nav-bar">
+                <div class="brand">
+                    <i data-lucide="smartphone"></i> Citarox Studio
+                </div>
+            </nav>
+            
+            <div class="hero-content">
+                <span class="hero-badge"><i data-lucide="sparkles" size="14"></i> Nouveautés 2026</span>
+                <h1 class="hero-title">Des applications utiles pour votre quotidien.</h1>
+                <p class="hero-description">Nous créons des outils mobiles soignés, performants et conçus pour garantir le respect de votre vie privée.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container">
+        <div class="grid-layout">
+            
+            <!-- Voucho Detail (Main) -->
+            <div class="glass-card voucho-hero-card">
+                <div class="app-header">
+                    <img src="assets/voucho_icon.png" alt="Voucho Icon" class="app-icon-large">
+                    <div>
+                        <span class="app-tagline">Application à la une</span>
+                        <h2 class="app-title-large">Voucho</h2>
+                    </div>
+                </div>
+                
+                <p class="voucho-description">
+                    Voucho est le portefeuille numérique le plus simple pour stocker et partager vos bons d'achat, cartes cadeaux et bons de réduction avec votre famille ou vos proches. Vos données restent chiffrées de bout en bout et aucun compte n'est obligatoire.
+                </p>
+
+                <!-- Features of Voucho -->
+                <div class="features-row">
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Partage en temps réel</h4>
+                            <p class="feature-desc">Créez des dossiers partagés en famille. Chaque modification est synchronisée instantanément.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="lock"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Sécurité maximale</h4>
+                            <p class="feature-desc">Vos bons sont chiffrés sur l'appareil. Pas de collecte abusive de vos informations privées.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Lecteur PDF intégré</h4>
+                            <p class="feature-desc">Importez directement vos bons d'achat sous format PDF et visualisez-les en un clic.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <i data-lucide="wifi-off"></i>
+                        </div>
+                        <div>
+                            <h4 class="feature-title">Fonctionnement hors-ligne</h4>
+                            <p class="feature-desc">Accédez à tous vos codes-barres à la caisse du magasin, même sans réseau.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How it works -->
+                <div class="steps-container">
+                    <h4 class="steps-title">Comment utiliser Voucho ?</h4>
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <h5>Ajoutez vos bons</h5>
+                            <p>Scannez le code-barres de vos cartes ou importez vos PDF directement.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <h5>Créez un dossier</h5>
+                            <p>Regroupez vos bons par magasin ou par membre de la famille.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <h5>Partagez le lien</h5>
+                            <p>Envoyez une invitation de dossier partagé par message à vos proches.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Apps Sidebar -->
+            <div class="sidebar">
+                <h3 class="sidebar-title"><i data-lucide="grid" size="20"></i> Nos autres projets</h3>
+                
+                <!-- MatchSet -->
+                <div class="glass-card app-sidebar-card">
+                    <img src="assets/matchset_icon.png" alt="MatchSet Icon" class="app-icon-small">
+                    <div class="app-meta">
+                        <span class="app-genre genre-matchset">Sports</span>
+                        <h4 class="app-title-small">MatchSet</h4>
+                        <p class="app-desc-small">
+                            Un outil d'arbitrage et de suivi de score en direct haut de gamme pour le Tennis, Padel, Badminton, Squash et Tennis de Table. Synchronisation en réseau local P2P ou via le cloud, avec un compagnon Apple Watch & WearOS.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LifeBattery -->
+                <div class="glass-card app-sidebar-card">
+                    <img src="assets/life_battery_icon.png" alt="LifeBattery Icon" class="app-icon-small">
+                    <div class="app-meta">
+                        <span class="app-genre genre-lifebattery">Style de vie</span>
+                        <h4 class="app-title-small">LifeBattery</h4>
+                        <p class="app-desc-small">
+                            Une application inspirée du concept de "Memento Mori" pour suivre le pourcentage restant de votre vie. Configurez des réveils matinaux personnalisés avec des messages motivants et planifiez votre bucket list.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Zen Garden Clicker -->
+                <div class="glass-card app-sidebar-card">
+                    <img src="assets/zen_garden_icon.png" alt="Zen Garden Clicker Icon" class="app-icon-small">
+                    <div class="app-meta">
+                        <span class="app-genre genre-zengarden">Détente / Jeu</span>
+                        <h4 class="app-title-small">Zen Garden Clicker</h4>
+                        <p class="app-desc-small">
+                            Un jeu de type clicker minimaliste et apaisant. Cultivez votre propre arbre Bonsaï, récoltez de l'énergie Zen et améliorez votre jardin avec des éléments décoratifs zen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- AdMob Domain and app-ads.txt Notice -->
+        <div class="domain-notice">
+            <div class="notice-icon-wrapper">
+                <i data-lucide="shield-check" size="32"></i>
+            </div>
+            <div class="notice-text">
+                <h4>Vérification AdMob & Sécurité</h4>
+                <p>
+                    Notre domaine développeur racine héberge un fichier de transparence publicitaire standardisé <code>app-ads.txt</code>. 
+                    Cela permet aux annonceurs d'identifier de manière fiable les diffuseurs officiels de nos applications et garantit une expérience publicitaire sécurisée et sans fraude.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <i data-lucide="smartphone" color="#4FACFE"></i> Citarox Studio
+                </div>
+                <p>Création d'applications mobiles intuitives basées sur la simplicité et le chiffrement local de vos données.</p>
+            </div>
+            <div>
+                <h4 class="footer-links-title">Légal</h4>
+                <ul class="footer-links">
+                    <li><a href="citarox-policies/voucho-privacy.html">Politique de Confidentialité — Voucho</a></li>
+                    <li><a href="citarox-policies/matchset-privacy.html">Politique de Confidentialité — MatchSet</a></li>
+                    <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Conditions Générales (EULA)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-links-title">Technique</h4>
+                <ul class="footer-links">
+                    <li><a href="app-ads.txt">Fichier app-ads.txt</a></li>
+                    <li><a href="https://github.com/chassotce">GitHub Profil</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Citarox Studio. Tous droits réservés.</p>
+            <p>Développé avec passion pour iOS & Android.</p>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
